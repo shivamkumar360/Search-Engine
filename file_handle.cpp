@@ -28,6 +28,11 @@ int main()
     vector<string>files={"data.txt","data2.txt"};
     int totaldoc=files.size();
     unordered_map<string,unordered_map<string,int>>index;
+
+
+    // loading or storing index
+
+
     ifstream fin("index.txt");
     if(fin)
     {
@@ -106,45 +111,6 @@ int main()
     fout.close();
     }
 
-//     for(auto &c:files)
-//     {
-//     ifstream fin;
-//     fin.open(c);
-//     if(!fin)
-//     {
-//         cout<<"error opening file\n";
-//         return 1;
-//     }
-//     string line;
-//     while(getline(fin,line))
-//     {
-//         string clean="";
-//         for(int i=0;i<line.length();i++)
-//         {
-//             if(isalnum(line[i]) || line[i]==' ')
-//             {
-//                 clean+=tolower(line[i]);
-//             }
-//             else
-//             {
-//                 clean+=' ';
-//             }
-//         }
-//         stringstream ss(clean);
-//         string word;
-//         while(ss>>word)
-//         {
-//             if(irrelevent.find(word)!=irrelevent.end())
-//         {
-//             continue;
-//         }
-//             index[word][c]++;
-//         }
-//     }
-    
-//     fin.close();
-// }
-    
 
     // query part ahead
 
