@@ -105,7 +105,7 @@ for(auto& st:token)
     }
     else
     {
-         tokenidf.insert({st,0});
+         tokenidf[st]=0;
     }
 }
 
