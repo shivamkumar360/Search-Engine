@@ -20,44 +20,15 @@ bool comp(pair<string,double>a,pair<string,double>b)
 }
 int main()
 {
+    // irrelevent words
     set<string>irrelevent={"of","the","is","and"};
-    string query;
-    cout<<"enter the query\n";
-    getline(cin, query);
-    string clean_query="";
-    for(auto& q:query)
-    {
-        if(isalnum(q) || q==' ')
-        {
-            clean_query+=tolower(q);
-        }
-        else
-        {
-            clean_query+=" ";
-        }
-    }
-    vector<string>token;
-    stringstream s(clean_query);
-    string to;
-    while(s>>to)
-    {
-        if(irrelevent.find(to)!=irrelevent.end())
-        {
-            continue;
-        }
-        token.push_back(to);
-    }
 
-    if(token.empty())
-{
-    cout << "no valid query \n";
-    return 0;
-}
-
+    // index storage part
 
     vector<string>files={"data.txt","data2.txt"};
     int totaldoc=files.size();
     unordered_map<string,unordered_map<string,int>>index;
+
     for(auto &c:files)
     {
     ifstream fin;
@@ -96,6 +67,51 @@ int main()
     
     fin.close();
 }
+    
+
+    // query part ahead
+
+    // query string 
+    string query;
+    cout<<"enter the query\n";
+    getline(cin, query);
+    string clean_query="";
+
+
+    // query is cleaned here
+    for(auto& q:query)
+    {
+        if(isalnum(q) || q==' ')
+        {
+            clean_query+=tolower(q);
+        }
+        else
+        {
+            clean_query+=" ";
+        }
+    }
+
+    // now query is converted into tokens of words 
+    vector<string>token;
+    stringstream s(clean_query);
+    string to;
+    while(s>>to)
+    {
+        if(irrelevent.find(to)!=irrelevent.end())
+        {
+            continue;
+        }
+        token.push_back(to);
+    }
+
+    if(token.empty())
+{
+    cout << "no valid query \n";
+    return 0;
+}
+
+
+    
 unordered_map<string, double>tokenidf;
 for(auto& st:token)
 {
@@ -139,6 +155,5 @@ for(auto &p : filerank)
     cnt++;
     cout<<p.first<<"-> "<<p.second<<endl;
 }
-
     return 0;
 }
