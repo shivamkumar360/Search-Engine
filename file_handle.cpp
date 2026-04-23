@@ -129,8 +129,14 @@ for(auto &p : file_score)
 }
 sort(filerank.begin(),filerank.end(),comp);
 cout << fixed << setprecision(2);
+int cnt=0;
 for(auto &p : filerank)
 {
+    if(cnt>=5)
+    {
+        break;
+    }
+    cnt++;
     cout<<p.first<<"-> "<<p.second<<endl;
 }
 
