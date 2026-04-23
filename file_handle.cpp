@@ -29,10 +29,7 @@ int main()
     int totaldoc=files.size();
     unordered_map<string,unordered_map<string,int>>index;
 
-
     // loading or storing index
-
-
     ifstream fin("index.txt");
     if(fin)
     {
