@@ -28,8 +28,34 @@ int main()
     vector<string>files={"data.txt","data2.txt"};
     int totaldoc=files.size();
     unordered_map<string,unordered_map<string,int>>index;
+    ifstream fin("index.txt");
+    if(fin)
+    {
+        string l;
+        while(getline(fin,l))
+        {
+        stringstream ss(l);
+        string wd;
+        ss>>wd;
+        string te=wd;
+        while(ss>>wd)
+        {
+           int pos=wd.find(':');
+           if(pos == string::npos)
+           {
+            continue;
+           }
+           string file=wd.substr(0,pos);
+           int freq=stoi(wd.substr(pos + 1));
+           index[te][file]=freq;
+        }
 
-    for(auto &c:files)
+        }
+    }
+    else
+    {
+        ofstream fout("index.txt");
+        for(auto &c:files)
     {
     ifstream fin;
     fin.open(c);
@@ -67,6 +93,57 @@ int main()
     
     fin.close();
 }
+
+    for(auto& idx:index)
+    {
+        fout<<idx.first<<" ";
+        for(auto& sec:idx.second)
+        {
+            fout << sec.first << ":" << sec.second << " ";
+        }
+        fout<<"\n";
+    }
+    fout.close();
+    }
+
+//     for(auto &c:files)
+//     {
+//     ifstream fin;
+//     fin.open(c);
+//     if(!fin)
+//     {
+//         cout<<"error opening file\n";
+//         return 1;
+//     }
+//     string line;
+//     while(getline(fin,line))
+//     {
+//         string clean="";
+//         for(int i=0;i<line.length();i++)
+//         {
+//             if(isalnum(line[i]) || line[i]==' ')
+//             {
+//                 clean+=tolower(line[i]);
+//             }
+//             else
+//             {
+//                 clean+=' ';
+//             }
+//         }
+//         stringstream ss(clean);
+//         string word;
+//         while(ss>>word)
+//         {
+//             if(irrelevent.find(word)!=irrelevent.end())
+//         {
+//             continue;
+//         }
+//             index[word][c]++;
+//         }
+//     }
+    
+//     fin.close();
+// }
     
 
     // query part ahead
