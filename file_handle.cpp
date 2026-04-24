@@ -8,7 +8,9 @@
 #include<algorithm>
 #include <iomanip>
 #include<cmath>
+#include <filesystem>
 using namespace std;
+namespace fs = std::filesystem;
 
 bool comp(pair<string,double>a,pair<string,double>b)
 {
@@ -25,7 +27,14 @@ int main()
 
     // index storage part
 
-    vector<string>files={"data.txt","data2.txt"};
+    vector<string>files;
+    for(auto& datafile:fs::directory_iterator("data"))
+    {
+        if(datafile.path().extension()==".txt")
+        {
+            files.push_back(datafile.path().string());
+        }
+    }
     int totaldoc=files.size();
     unordered_map<string,unordered_map<string,int>>index;
 
