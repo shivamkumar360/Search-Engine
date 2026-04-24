@@ -28,6 +28,11 @@ int main()
     // index storage part
 
     vector<string>files;
+    if(!fs::exists("data"))
+    {
+        cout << "data folder not found\n";
+        return 0;
+    }
     for(auto& datafile:fs::directory_iterator("data"))
     {
         if(datafile.path().extension()==".txt")
@@ -35,7 +40,7 @@ int main()
             files.push_back(datafile.path().string());
         }
     }
-    int totaldoc=files.size();
+   
     unordered_map<string,unordered_map<string,int>>index;
 
     // loading or storing index
@@ -62,6 +67,7 @@ int main()
         }
 
         }
+        fin.close();
     }
     else
     {
@@ -116,6 +122,24 @@ int main()
     }
     fout.close();
     }
+
+
+    set<string> docs;
+
+for(auto &p : index)
+{
+    for(auto &q : p.second)
+    {
+        docs.insert(q.first);
+    }
+}
+
+int totaldoc = docs.size();
+if(totaldoc == 0)
+{
+    cout << "No documents indexed\n";
+    return 0;
+}
 
 
     // query part ahead
