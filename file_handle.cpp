@@ -34,7 +34,7 @@ void indexsize(set<string>& docs,const unordered_map<string,unordered_map<string
 int main()
 {
     // irrelevent words
-    set<string>irrelevent={"of","the","is","and"};
+    set<string>irrelevent={"of","the","is","are","and"};
 
     // index storage part
 
