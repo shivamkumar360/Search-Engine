@@ -20,6 +20,17 @@ bool comp(pair<string,double>a,pair<string,double>b)
     }
     return false;
 }
+void indexsize(set<string>& docs,const unordered_map<string,unordered_map<string,int>>&index)
+{
+    for(auto &p : index)
+{
+    for(auto &q : p.second)
+    {
+        docs.insert(q.first);
+    }
+}
+
+}
 int main()
 {
     // irrelevent words
@@ -28,6 +39,7 @@ int main()
     // index storage part
 
     vector<string>files;
+    int totaldoc=0;
     if(!fs::exists("data"))
     {
         cout << "data folder not found\n";
@@ -42,11 +54,13 @@ int main()
     }
    
     unordered_map<string,unordered_map<string,int>>index;
+    bool build=true;
 
     // loading or storing index
     ifstream fin("index.txt");
     if(fin)
     {
+        build=false;
         string l;
         while(getline(fin,l))
         {
@@ -67,10 +81,23 @@ int main()
         }
 
         }
+        set<string> docs;
+        indexsize(docs,index);
+
+if(docs.size()!=files.size())
+{
+    build=true;
+    index.clear();
+}
+else
+    {
+        totaldoc = docs.size();
+    }
         fin.close();
     }
-    else
+    if(build)
     {
+        totaldoc=files.size();
         ofstream fout("index.txt");
         for(auto &c:files)
     {
@@ -123,18 +150,6 @@ int main()
     fout.close();
     }
 
-
-    set<string> docs;
-
-for(auto &p : index)
-{
-    for(auto &q : p.second)
-    {
-        docs.insert(q.first);
-    }
-}
-
-int totaldoc = docs.size();
 if(totaldoc == 0)
 {
     cout << "No documents indexed\n";
