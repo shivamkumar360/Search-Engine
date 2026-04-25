@@ -221,7 +221,10 @@ for(auto& st:token)
     {
     for(auto& p:index[st])
     {
-        file_score[p.first]+=p.second*tokenidf[st];
+
+        double tf = 1 + log10(p.second); 
+        file_score[p.first] += tf * tokenidf[st];
+       
 }
 }
 }
