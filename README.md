@@ -1,6 +1,6 @@
-#  Search Engine in C++
+#   Text Search Engine (C++)
 
-A lightweight search engine built in C++ that indexes text documents and ranks them using TF-IDF.
+A ligthweight search engine system built in C++ that performs automated document discovery, inverted indexing, and relevance ranking using Log-Normalized TF-IDF.
 
 ---
 
@@ -12,6 +12,9 @@ A lightweight search engine built in C++ that indexes text documents and ranks t
 -  Query-based document retrieval  
 -  Ranked results (most relevant first)  
 -  Efficient using unordered_map (hashing)
+-  Dynamic File Discovery: Automatically crawls a local directory (/data) and indexes all .txt files using the C++17 
+   (using std::filesystem)
+-  Persistence Layer: Serializes the inverted index to index.txt to avoid redundant re-processing, significantly reducing startup time.
 
 ---
 
@@ -26,13 +29,16 @@ A lightweight search engine built in C++ that indexes text documents and ranks t
    - Build an inverted index  
    - Store frequency of each word per file  
 
-3. Ranking
+3. Persistence
+   - The index is written to disk in a structured format (word file1:freq file2:freq) for rapid loading
+
+4. Ranking
    - Use TF-IDF:
      
-     score = frequency × log(1 + total_docs / docs_with_word)
+     score = (1.00 + log10(frequency)) × log(1 + total_docs / docs_with_word)
      
 
-4. Query
+5. Query
    - Input query → tokenize → compute scores → rank results  
 
 
@@ -63,6 +69,16 @@ data2.txt -> 1.23
 - Understood TF-IDF ranking  
 - Applied hashing for efficient search  
 - Built a mini information retrieval system  
+
+# Future Roadmap
+
+- Stemming: Integrate Porter Stemmer to handle word variations (e.g., "running" -> "run").
+- 
+- Multi-threading: Parallelize the indexing of large file batches.
+- 
+- Boolean Logic: Support for AND, OR, and NOT operators.
+- 
+- Fuzzy Search: Implement Levenshtein Distance for typo tolerance.
 
 
 

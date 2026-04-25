@@ -57,7 +57,7 @@ int main()
     bool build=true;
 
     // loading index if build is not required
-    
+
     ifstream fin("index.txt");
     if(fin)
     {
@@ -234,7 +234,7 @@ for(auto& st:token)
     for(auto& p:index[st])
     {
 
-        double tf = 1 + log10(p.second); 
+        double tf = 1.00 + log10(p.second); 
         file_score[p.first] += tf * tokenidf[st];
        
 }
