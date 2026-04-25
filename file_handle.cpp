@@ -56,7 +56,8 @@ int main()
     unordered_map<string,unordered_map<string,int>>index;
     bool build=true;
 
-    // loading or storing index
+    // loading index if build is not required
+    
     ifstream fin("index.txt");
     if(fin)
     {
@@ -95,6 +96,11 @@ else
     }
         fin.close();
     }
+
+
+    // buiding index if it is required
+
+
     if(build)
     {
         totaldoc=files.size();
@@ -180,6 +186,7 @@ if(totaldoc == 0)
     }
 
     // now query is converted into tokens of words 
+
     vector<string>token;
     stringstream s(clean_query);
     string to;
@@ -199,7 +206,9 @@ if(totaldoc == 0)
 }
 
 
-    
+    // idf storage
+
+
 unordered_map<string, double>tokenidf;
 for(auto& st:token)
 {
@@ -212,6 +221,9 @@ for(auto& st:token)
          tokenidf[st]=0;
     }
 }
+
+// file scores calculation
+
 
 unordered_map<string,double>file_score;
 
@@ -229,12 +241,19 @@ for(auto& st:token)
 }
 }
 
+
+
+// storing files with rank
+
+
 vector<pair<string,double>>filerank;
 for(auto &p : file_score)
 {
     filerank.push_back({p.first,p.second});
 }
 sort(filerank.begin(),filerank.end(),comp);
+
+
 cout << fixed << setprecision(2);
 int cnt=0;
 for(auto &p : filerank)
