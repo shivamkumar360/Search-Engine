@@ -16,6 +16,7 @@ class SearchEngine
 {
 private:
     unordered_map<string, unordered_map<string, int>> index;
+    unordered_map<string, long long> filetimestamps;
     set<string> irrelevent = {"of", "the", "is", "are", "and"};
     vector<string> files;
     int totaldoc = 0;
@@ -66,32 +67,140 @@ public:
             load_index();
         }
 
-        // If  files changed, rebuilding of  index will take place
+        if (fs::exists("timestamp.txt"))
+        {
+            load_timestamp();
+        }
+        
+        bool indexchange=false;
+
+
+        for(auto& filename:files)
+        {
+            long long currenttime = fs::last_write_time(filename).time_since_epoch().count();
+            
+           
+            if(filetimestamps.find(filename)==filetimestamps.end() || currenttime!=filetimestamps[filename])
+            {
+                cout<<"updating file "<<filename<<endl;
+                remove_oldfile(filename);
+                build_index_newfile(filename);
+                filetimestamps[filename]=currenttime;
+                indexchange=true;
+            }
+  
+        }
+
+        for(auto it=filetimestamps.begin();it!=filetimestamps.end();)
+            {
+                if(find(files.begin(),files.end(),it->first)==files.end())
+                {
+                    remove_oldfile(it->first);
+                    it=filetimestamps.erase(it);
+                    indexchange = true;
+                }
+                else
+                {
+                    it++;
+                }
+            }
+        
+        if(indexchange)
+        {
+        save_index();
+        save_timestamp();
+        }
+
+       
 
         set<string> docs;
         indexsize(docs);                 // indexsize function will push file names from existing index
-        if (docs.size() != files.size()) // if no of files not  matched rebuilding will take place
+       
+             totaldoc = docs.size();
+      
+    }
+    
+    void save_timestamp()
+    {
+        ofstream fout("timestamp.txt");
+        for(auto &filename:files)
         {
-            cout << "Index outdated or missing. Building now...\n";
-            build_index();
+            auto t = fs::last_write_time(filename);
+
+            auto count = t.time_since_epoch().count();
+
+            fout << filename << " " << count << "\n";
         }
+
+    }
+
+    void load_timestamp()
+    {
+        ifstream fin("timestamp.txt");
+        if (!fin)
+        {
+            return;
+        }
+
+        filetimestamps.clear();
+        string filename;
+        long long timestamp;
+    
+        while (fin >> filename >> timestamp)
+
+        {
+             filetimestamps[filename] = timestamp;
+        }
+        fin.close();
+
+    }
+
+    void save_index()
+    {
+        ofstream fout("index.txt");
+
+
+        if (!fout) 
+        {
+        cout << "Error: Could not save index\n";
+        return;
+        }
+        for (auto &idx : index)
+        {
+
+            fout << idx.first << " ";
+            for (auto &sec : idx.second)
+            {
+                fout << sec.first << ":" << sec.second << " ";
+            }
+
+            fout << "\n";
+        }
+    }
+    void remove_oldfile(string filename)
+    {
+        for(auto it = index.begin(); it != index.end();)
+        {
+            it->second.erase(filename);
+        
+
+        if (it->second.empty()) 
+        {
+            it = index.erase(it); 
+        } 
         else
         {
-            cout << "Index loaded successfully from file.\n";
-            totaldoc = docs.size();
+            it++;
         }
     }
 
-    void build_index()
+    }
+
+    void build_index_newfile(string filename)
     {
-
-        totaldoc = files.size();
-        ofstream fout("index.txt");
-
-        for (auto &c : files)
-        {
+           
             ifstream fin;
-            fin.open(c);
+            fin.open(filename);
             if (!fin)
             {
                 cout << "error opening file\n";
@@ -121,23 +230,15 @@ public:
                     {
                         continue;
                     }
-                    index[word][c]++;
+                    index[word][filename]++;
                 }
             }
-        }
 
-        for (auto &idx : index)
-        {
-            fout << idx.first << " ";
-            for (auto &sec : idx.second)
-            {
-                fout << sec.first << ":" << sec.second << " ";
-            }
+            
 
-            fout << "\n";
-        }
-        fout.close();
+
     }
+
 
     void load_index()
     {
