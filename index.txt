@@ -1,165 +1,165 @@
-priorities data/tech_trends.txt:1 
-top data/tech_trends.txt:1 
-just data/tech_trends.txt:1 
-rather data/tech_trends.txt:1 
-query data/tech_trends.txt:1 
-ai data/tech_trends.txt:1 
-oil data/tech_trends.txt:1 
-new data/tech_trends.txt:1 
-world data/tech_trends.txt:1 
-tech data/tech_trends.txt:1 
-latest data/tech_trends.txt:1 
-machine data/tech_trends.txt:1 
-results data/search_logic.txt:1 
-matching data/tech_trends.txt:1 
-don data/search_logic.txt:1 
-long data/search_logic.txt:1 
-sure data/search_logic.txt:1 
-helps data/search_logic.txt:1 
-frequency data/search_logic.txt:1 
-provides data/cpp_notes.txt:1 
-statistic data/search_logic.txt:1 
-types data/ds_intro.txt:1 
-works data/search_logic.txt:1 
-inverted data/search_logic.txt:1 
-efficiency data/tech_trends.txt:1 data/cpp_notes.txt:1 
-dominate data/search_logic.txt:1 
-performing data/ds_intro.txt:1 
-map data/cpp_notes.txt:1 
-stl data/cpp_notes.txt:1 
-easy data/cpp_notes.txt:1 
-lists data/ds_intro.txt:1 
-that data/search_logic.txt:2 
-building data/cpp_notes.txt:1 
-like data/cpp_notes.txt:1 data/algorithms.txt:1 
-systems data/search_logic.txt:1 data/cpp_notes.txt:1 
-high data/cpp_notes.txt:1 
-any data/tech_trends.txt:1 
-complexity data/algorithms.txt:1 
-system data/tech_trends.txt:1 
-how data/search_logic.txt:1 
-widely data/cpp_notes.txt:1 
-memory data/cpp_notes.txt:1 
-structures data/ds_intro.txt:3 
-maximum data/algorithms.txt:1 
-artificial data/tech_trends.txt:1 
-algorithm data/ds_intro.txt:1 data/algorithms.txt:2 
-list data/algorithms.txt:1 
-used data/ds_intro.txt:1 data/cpp_notes.txt:1 
-requires data/tech_trends.txt:1 data/algorithms.txt:1 
-ranking data/search_logic.txt:1 
-space data/algorithms.txt:1 
-words data/tech_trends.txt:1 
-storing data/ds_intro.txt:1 
-to data/tech_trends.txt:1 data/search_logic.txt:2 data/ds_intro.txt:2 data/algorithms.txt:1 
-data data/tech_trends.txt:2 data/algorithms.txt:2 data/ds_intro.txt:4 
-quicksort data/algorithms.txt:1 
-this data/tech_trends.txt:1 
-developers data/cpp_notes.txt:1 
-finding data/algorithms.txt:1 
-purpose data/ds_intro.txt:1 
-be data/algorithms.txt:1 
-intelligence data/tech_trends.txt:1 
-filesystem data/cpp_notes.txt:1 
-fast data/algorithms.txt:1 
-arrange data/ds_intro.txt:1 
-searching data/algorithms.txt:1 
-must data/algorithms.txt:1 
-standard data/cpp_notes.txt:1 
-time data/algorithms.txt:1 
-structured data/algorithms.txt:1 
-engines data/tech_trends.txt:1 data/cpp_notes.txt:1 
-programming data/cpp_notes.txt:2 
-designed data/ds_intro.txt:1 
-important data/search_logic.txt:1 
-unordered data/cpp_notes.txt:1 
-than data/tech_trends.txt:1 
-efficient data/algorithms.txt:1 
-element data/algorithms.txt:1 
-sorted data/algorithms.txt:1 
-understand data/tech_trends.txt:1 
-processing data/tech_trends.txt:1 data/ds_intro.txt:1 data/algorithms.txt:1 
-modern data/tech_trends.txt:1 
-because data/cpp_notes.txt:1 
-sorting data/algorithms.txt:1 
-mergesort data/algorithms.txt:1 
-performance data/cpp_notes.txt:1 data/algorithms.txt:1 
-terms data/algorithms.txt:1 
-a data/tech_trends.txt:1 data/search_logic.txt:5 data/ds_intro.txt:5 data/cpp_notes.txt:1 data/algorithms.txt:3 
-stacks data/ds_intro.txt:1 
-collection data/search_logic.txt:1 
-well data/algorithms.txt:1 
-binary data/algorithms.txt:1 
-log data/search_logic.txt:1 
-search data/tech_trends.txt:1 data/search_logic.txt:3 data/cpp_notes.txt:1 data/algorithms.txt:1 
-17 data/cpp_notes.txt:1 
-for data/tech_trends.txt:1 data/ds_intro.txt:2 data/cpp_notes.txt:1 data/algorithms.txt:3 
-tf data/search_logic.txt:1 
-c data/cpp_notes.txt:2 
-useful data/cpp_notes.txt:1 
-documents data/search_logic.txt:1 
-arrays data/ds_intro.txt:1 
-it data/cpp_notes.txt:1 
-containers data/cpp_notes.txt:1 
+directories data/cpp_notes.txt:1 
+makes data/cpp_notes.txt:1 
+which data/cpp_notes.txt:1 
 introduced data/cpp_notes.txt:1 
+map data/cpp_notes.txt:1 
+unordered data/cpp_notes.txt:1 
+provides data/cpp_notes.txt:1 
+easy data/cpp_notes.txt:1 
+stl data/cpp_notes.txt:1 
+standard data/cpp_notes.txt:1 
+memory data/cpp_notes.txt:1 
+building data/cpp_notes.txt:1 
+widely data/cpp_notes.txt:1 
+containers data/cpp_notes.txt:1 
+it data/cpp_notes.txt:1 
+high data/cpp_notes.txt:1 
+useful data/cpp_notes.txt:1 
+c data/cpp_notes.txt:2 
+there data/ds_intro.txt:1 
+based data/search_logic.txt:1 
+speed data/cpp_notes.txt:1 data/tech_trends.txt:1 
+specific data/ds_intro.txt:1 
+organizing data/ds_intro.txt:1 
+an data/ds_intro.txt:1 data/algorithms.txt:2 
+suit data/ds_intro.txt:1 
+format data/ds_intro.txt:1 
+very data/cpp_notes.txt:1 data/search_logic.txt:1 
+solving data/ds_intro.txt:1 
+trends data/tech_trends.txt:1 
+specialized data/ds_intro.txt:1 
+scanning data/cpp_notes.txt:1 
+library data/cpp_notes.txt:2 
+index data/search_logic.txt:1 data/algorithms.txt:1 
 remain data/tech_trends.txt:1 
 them data/search_logic.txt:1 
 language data/cpp_notes.txt:1 
 normalized data/search_logic.txt:1 
-which data/cpp_notes.txt:1 
-makes data/cpp_notes.txt:1 
-library data/cpp_notes.txt:2 
-index data/search_logic.txt:1 data/algorithms.txt:1 
-scanning data/cpp_notes.txt:1 
-directories data/cpp_notes.txt:1 
-trends data/tech_trends.txt:1 
-specialized data/ds_intro.txt:1 
-solving data/ds_intro.txt:1 
-very data/search_logic.txt:1 data/cpp_notes.txt:1 
-format data/ds_intro.txt:1 
-suit data/ds_intro.txt:1 
-an data/ds_intro.txt:1 data/algorithms.txt:2 
-organizing data/ds_intro.txt:1 
-specific data/ds_intro.txt:1 
-retrieving data/ds_intro.txt:1 
-speed data/tech_trends.txt:1 data/cpp_notes.txt:1 
-based data/search_logic.txt:1 
-there data/ds_intro.txt:1 
-numerical data/search_logic.txt:1 
+arrays data/ds_intro.txt:1 
+documents data/search_logic.txt:1 
+tf data/search_logic.txt:1 
+17 data/cpp_notes.txt:1 
+for data/cpp_notes.txt:1 data/tech_trends.txt:1 data/ds_intro.txt:2 data/algorithms.txt:3 
+log data/search_logic.txt:1 
+binary data/algorithms.txt:1 
+well data/algorithms.txt:1 
+collection data/search_logic.txt:1 
+stacks data/ds_intro.txt:1 
+mergesort data/algorithms.txt:1 
+because data/cpp_notes.txt:1 
+sorting data/algorithms.txt:1 
+modern data/tech_trends.txt:1 
+processing data/tech_trends.txt:1 data/ds_intro.txt:1 data/algorithms.txt:1 
+understand data/tech_trends.txt:1 
+sorted data/algorithms.txt:1 
+element data/algorithms.txt:1 
+searching data/algorithms.txt:1 
+developers data/cpp_notes.txt:1 
+this data/tech_trends.txt:1 
+quicksort data/algorithms.txt:1 
 several data/ds_intro.txt:1 
-architect data/tech_trends.txt:1 
-basic data/ds_intro.txt:1 
-algorithms data/tech_trends.txt:1 data/algorithms.txt:1 
-advanced data/ds_intro.txt:1 
 idf data/search_logic.txt:1 
+structures data/ds_intro.txt:3 
+maximum data/algorithms.txt:1 
+basic data/ds_intro.txt:1 
+architect data/tech_trends.txt:1 
+include data/ds_intro.txt:1 
+procedure data/ds_intro.txt:1 
+works data/search_logic.txt:1 
+inverted data/search_logic.txt:1 
+purpose data/ds_intro.txt:1 
+in data/cpp_notes.txt:1 data/tech_trends.txt:1 data/search_logic.txt:2 data/algorithms.txt:2 
+indexing data/search_logic.txt:1 
+template data/cpp_notes.txt:1 
+by data/search_logic.txt:1 
+its data/cpp_notes.txt:1 
+on data/search_logic.txt:1 
+that data/search_logic.txt:2 
+lists data/ds_intro.txt:1 
+vector data/cpp_notes.txt:1 
+engine data/search_logic.txt:1 
+heart data/search_logic.txt:1 
+priorities data/tech_trends.txt:1 
 powerful data/tech_trends.txt:1 
 reflect data/search_logic.txt:1 
 all data/ds_intro.txt:1 
-t data/search_logic.txt:1 
-common data/ds_intro.txt:1 
-include data/ds_intro.txt:1 
-making data/search_logic.txt:1 
-linked data/ds_intro.txt:1 
-procedure data/ds_intro.txt:1 
-problem data/ds_intro.txt:1 
-computation data/ds_intro.txt:1 
-vector data/cpp_notes.txt:1 
-engine data/search_logic.txt:1 
-template data/cpp_notes.txt:1 
-by data/search_logic.txt:1 
-in data/tech_trends.txt:1 data/search_logic.txt:2 data/cpp_notes.txt:1 data/algorithms.txt:2 
-indexing data/search_logic.txt:1 
 fundamental data/algorithms.txt:1 
 pages data/search_logic.txt:1 
-its data/cpp_notes.txt:1 
-on data/search_logic.txt:1 
-or data/ds_intro.txt:1 data/cpp_notes.txt:1 
-relevance data/search_logic.txt:1 
-heart data/search_logic.txt:1 
-learning data/tech_trends.txt:1 
-most data/tech_trends.txt:1 data/search_logic.txt:1 
+statistic data/search_logic.txt:1 
+frequency data/search_logic.txt:1 
+computation data/ds_intro.txt:1 
+numerical data/search_logic.txt:1 
+systems data/cpp_notes.txt:1 data/search_logic.txt:1 
+t data/search_logic.txt:1 
+common data/ds_intro.txt:1 
+complexity data/algorithms.txt:1 
+any data/tech_trends.txt:1 
+matching data/tech_trends.txt:1 
+don data/search_logic.txt:1 
+ai data/tech_trends.txt:1 
+document data/search_logic.txt:1 
+advanced data/ds_intro.txt:1 
+algorithms data/tech_trends.txt:1 data/algorithms.txt:1 
+machine data/tech_trends.txt:1 
+top data/tech_trends.txt:1 
+making data/search_logic.txt:1 
+linked data/ds_intro.txt:1 
+types data/ds_intro.txt:1 
+word data/search_logic.txt:1 
+oil data/tech_trends.txt:1 
 context data/tech_trends.txt:1 
 use data/tech_trends.txt:1 
 intended data/search_logic.txt:1 
-word data/search_logic.txt:1 
-document data/search_logic.txt:1 
+results data/search_logic.txt:1 
+relevance data/search_logic.txt:1 
+or data/cpp_notes.txt:1 data/ds_intro.txt:1 
+problem data/ds_intro.txt:1 
+learning data/tech_trends.txt:1 
+most data/tech_trends.txt:1 data/search_logic.txt:1 
+world data/tech_trends.txt:1 
+space data/algorithms.txt:1 
+used data/cpp_notes.txt:1 data/ds_intro.txt:1 
+requires data/tech_trends.txt:1 data/algorithms.txt:1 
+ranking data/search_logic.txt:1 
+artificial data/tech_trends.txt:1 
+algorithm data/ds_intro.txt:1 data/algorithms.txt:2 
+list data/algorithms.txt:1 
+long data/search_logic.txt:1 
+retrieving data/ds_intro.txt:1 
+how data/search_logic.txt:1 
+system data/tech_trends.txt:1 
+structured data/algorithms.txt:1 
+time data/algorithms.txt:1 
+to data/tech_trends.txt:1 data/search_logic.txt:2 data/ds_intro.txt:2 data/algorithms.txt:1 
+data data/tech_trends.txt:2 data/algorithms.txt:2 data/ds_intro.txt:4 
+just data/tech_trends.txt:1 
+tech data/tech_trends.txt:1 
+like data/cpp_notes.txt:1 data/algorithms.txt:1 
+programming data/cpp_notes.txt:2 
+important data/search_logic.txt:1 
+engines data/cpp_notes.txt:1 data/tech_trends.txt:1 
+designed data/ds_intro.txt:1 
+finding data/algorithms.txt:1 
+new data/tech_trends.txt:1 
+performance data/cpp_notes.txt:1 data/algorithms.txt:1 
+a data/cpp_notes.txt:1 data/tech_trends.txt:1 data/search_logic.txt:5 data/ds_intro.txt:5 data/algorithms.txt:3 
+terms data/algorithms.txt:1 
+latest data/tech_trends.txt:1 
+rather data/tech_trends.txt:1 
+query data/tech_trends.txt:1 
+efficiency data/cpp_notes.txt:1 data/tech_trends.txt:1 
+sure data/search_logic.txt:1 
+search data/cpp_notes.txt:1 data/tech_trends.txt:1 data/search_logic.txt:3 data/algorithms.txt:1 
+storing data/ds_intro.txt:1 
+words data/tech_trends.txt:1 
+helps data/search_logic.txt:1 
+performing data/ds_intro.txt:1 
+dominate data/search_logic.txt:1 
+be data/algorithms.txt:1 
+efficient data/algorithms.txt:1 
+than data/tech_trends.txt:1 
+filesystem data/cpp_notes.txt:1 
+intelligence data/tech_trends.txt:1 
+fast data/algorithms.txt:1 
+arrange data/ds_intro.txt:1 
+must data/algorithms.txt:1 
