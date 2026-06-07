@@ -69,16 +69,17 @@ void initialize()
             load_index();
         }
 
-        // If load failed or files changed, build index
+        // If  files changed, rebuilding of  index will take place
 
         set<string> docs;
-        indexsize(docs);
-        if (docs.size() != files.size())
+        indexsize(docs);    // indexsize function will push file names from existing index 
+        if (docs.size() != files.size()) // if no of files not  matched rebuilding will take place 
         {
             cout << "Index outdated or missing. Building now...\n";
             build_index();
         } 
-        else {
+        else 
+        {
             cout << "Index loaded successfully from file.\n";
             totaldoc = docs.size();
         }
@@ -154,7 +155,10 @@ for (auto& idx : index)
     {
 
         ifstream fin("index.txt");
-        if (!fin) return;
+        if (!fin)
+        {
+         return;
+        }
 
         index.clear();
         string l;
@@ -288,7 +292,7 @@ for(auto &p : filerank)
 
 
 
-    }
+}
 
 };
 
