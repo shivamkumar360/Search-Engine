@@ -71,59 +71,53 @@ public:
         {
             load_timestamp();
         }
-        
-        bool indexchange=false;
 
+        bool indexchange = false;
 
-        for(auto& filename:files)
+        for (auto &filename : files)
         {
             long long currenttime = fs::last_write_time(filename).time_since_epoch().count();
-            
-           
-            if(filetimestamps.find(filename)==filetimestamps.end() || currenttime!=filetimestamps[filename])
+
+            if (filetimestamps.find(filename) == filetimestamps.end() || currenttime != filetimestamps[filename])
             {
-                cout<<"updating file "<<filename<<endl;
+                cout << "updating file " << filename << endl;
                 remove_oldfile(filename);
                 build_index_newfile(filename);
-                filetimestamps[filename]=currenttime;
-                indexchange=true;
+                filetimestamps[filename] = currenttime;
+                indexchange = true;
             }
-  
         }
 
-        for(auto it=filetimestamps.begin();it!=filetimestamps.end();)
-            {
-                if(find(files.begin(),files.end(),it->first)==files.end())
-                {
-                    remove_oldfile(it->first);
-                    it=filetimestamps.erase(it);
-                    indexchange = true;
-                }
-                else
-                {
-                    it++;
-                }
-            }
-        
-        if(indexchange)
+        for (auto it = filetimestamps.begin(); it != filetimestamps.end();)
         {
-        save_index();
-        save_timestamp();
+            if (find(files.begin(), files.end(), it->first) == files.end())
+            {
+                remove_oldfile(it->first);
+                it = filetimestamps.erase(it);
+                indexchange = true;
+            }
+            else
+            {
+                it++;
+            }
         }
 
-       
+        if (indexchange)
+        {
+            save_index();
+            save_timestamp();
+        }
 
         set<string> docs;
-        indexsize(docs);                 // indexsize function will push file names from existing index
-       
-             totaldoc = docs.size();
-      
+        indexsize(docs); // indexsize function will push file names from existing index
+
+        totaldoc = docs.size();
     }
-    
+
     void save_timestamp()
     {
         ofstream fout("timestamp.txt");
-        for(auto &filename:files)
+        for (auto &filename : files)
         {
             auto t = fs::last_write_time(filename);
 
@@ -131,7 +125,6 @@ public:
 
             fout << filename << " " << count << "\n";
         }
-
     }
 
     void load_timestamp()
@@ -145,25 +138,23 @@ public:
         filetimestamps.clear();
         string filename;
         long long timestamp;
-    
+
         while (fin >> filename >> timestamp)
 
         {
-             filetimestamps[filename] = timestamp;
+            filetimestamps[filename] = timestamp;
         }
         fin.close();
-
     }
 
     void save_index()
     {
         ofstream fout("index.txt");
 
-
-        if (!fout) 
+        if (!fout)
         {
-        cout << "Error: Could not save index\n";
-        return;
+            cout << "Error: Could not save index\n";
+            return;
         }
         for (auto &idx : index)
         {
@@ -179,66 +170,59 @@ public:
     }
     void remove_oldfile(string filename)
     {
-        for(auto it = index.begin(); it != index.end();)
+        for (auto it = index.begin(); it != index.end();)
         {
             it->second.erase(filename);
-        
 
-        if (it->second.empty()) 
-        {
-            it = index.erase(it); 
-        } 
-        else
-        {
-            it++;
+            if (it->second.empty())
+            {
+                it = index.erase(it);
+            }
+            else
+            {
+                it++;
+            }
         }
-    }
-
     }
 
     void build_index_newfile(string filename)
     {
-           
-            ifstream fin;
-            fin.open(filename);
-            if (!fin)
-            {
-                cout << "error opening file\n";
-                return;
-            }
 
-            string line;
-            while (getline(fin, line))
+        ifstream fin;
+        fin.open(filename);
+        if (!fin)
+        {
+            cout << "error opening file\n";
+            return;
+        }
+
+        string line;
+        while (getline(fin, line))
+        {
+            string clean = "";
+            for (int i = 0; i < line.length(); i++)
             {
-                string clean = "";
-                for (int i = 0; i < line.length(); i++)
+                if (isalnum(line[i]) || line[i] == ' ')
                 {
-                    if (isalnum(line[i]) || line[i] == ' ')
-                    {
-                        clean += tolower(line[i]);
-                    }
-                    else
-                    {
-                        clean += ' ';
-                    }
+                    clean += tolower(line[i]);
                 }
-                stringstream ss(clean);
-                string word;
-                while (ss >> word)
+                else
                 {
-                    if (irrelevent.find(word) != irrelevent.end())
-                    {
-                        continue;
-                    }
-                    index[word][filename]++;
+                    clean += ' ';
                 }
             }
-
-            
-
-
+            stringstream ss(clean);
+            string word;
+            while (ss >> word)
+            {
+                if (irrelevent.find(word) != irrelevent.end())
+                {
+                    continue;
+                }
+                index[word][filename]++;
+            }
+        }
     }
-
 
     void load_index()
     {
@@ -355,11 +339,28 @@ public:
         for (auto &p : filerank)
         {
             if (cnt >= 5)
-            {
                 break;
-            }
             cnt++;
-            cout << p.first << "-> " << p.second << endl;
+            cout << cnt << ". " << p.first << " (Rank: " << p.second << ")" << endl;
+
+            ifstream file(p.first);
+            if (file)
+            {
+                string line;
+                while (getline(file, line))
+                {
+                    string lower_line = line;
+                    for (char &c : lower_line)
+                        c = tolower(c);
+
+                    if (lower_line.find(token[0]) != string::npos)
+                    {
+                        cout << "   Snippet: ... " << line << " ..." << endl;
+                        break;
+                    }
+                }
+            }
+            cout << endl;
         }
     }
 };
