@@ -473,7 +473,7 @@ void SearchEngine::search(string query)
                 if (lower_line.find(token[0]) != string::npos)
                 {
                     // cout << "   Snippet: ... " << line << " ..." << endl;
-                    cout << "   Snippet: ... " << YELLOW << line << RESET << " ..." << endl;
+                    cout << "   Snippet: ... " << YELLOW << line << RESET << endl;
                     break;
                 }
             }
