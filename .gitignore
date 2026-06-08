@@ -1,2 +1,7 @@
 *.exe
 *.out
+build/
+index.txt
+timestamp.txt
+.vscode/
+*.o
