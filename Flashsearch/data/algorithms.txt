@@ -1,4 +1,0 @@
-An algorithm must be efficient in terms of time and space complexity.
-Sorting algorithms like QuickSort and MergeSort are fundamental to data processing.
-Binary search is a fast algorithm for finding an element in a sorted list.
-Searching for data requires a well-structured index for maximum performance.

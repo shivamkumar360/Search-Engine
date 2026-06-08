@@ -1,4 +1,0 @@
-C++ is a high-performance programming language. 
-It is widely used in systems programming and building search engines because of its speed and memory efficiency.
-The Standard Template Library or STL provides useful containers like unordered_map and vector.
-C++17 introduced the filesystem library which makes scanning directories very easy for developers.

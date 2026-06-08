@@ -14,7 +14,11 @@ int main()
         {
             break;
         }
+        auto start = chrono::high_resolution_clock::now();
         engine.search(q);
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double, milli> diff = end - start;
+        cout << "SEARCH LATENCY: " << diff.count() << " ms" << endl;
     }
     return 0;
 }

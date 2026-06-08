@@ -1,4 +1,0 @@
-Data structures are a specialized format for organizing, processing, retrieving and storing data. 
-There are several basic and advanced types of data structures, all designed to arrange data to suit a specific purpose. 
-Common structures include arrays, linked lists, and stacks. 
-An algorithm is a procedure used for solving a problem or performing a computation.
