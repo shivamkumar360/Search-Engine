@@ -19,20 +19,24 @@ A high-speed desktop search utility built in C++ that provides ranked search res
 ## 🛠️ System Architecture
 
 ### 1. Preprocessing Pipeline
+
 - **Normalization:** Case-folding (lowercase) and punctuation stripping using `isalnum`.
 - **Filtering:** Stop-word removal (e.g., "the", "is", "and") to reduce noise in the inverted index.
 
 ### 2. Data Structures
+
 - **Primary Index:** `unordered_map<string, unordered_map<string, int>>` (Inverted Index) for $O(1)$ word lookup across the dataset.
 - **State Registry:** `unordered_map<string, long long>` storing epoch-based timestamps for change detection and cache invalidation.
 
 ### 3. Ranking Logic
+
 The engine uses log-normalized TF-IDF for scoring:
 $$\text{Score} = (1.0 + \log_{10}(\text{TF})) \times \log_{10}(1.0 + \frac{\text{Total Docs}}{\text{Docs With Word}})$$
 
 ---
 
 ## 🔧 Tech Stack
+
 - **Language:** C++ (Standard 17+)
 - **Libraries:** STL (`unordered_map`, `vector`, `set`, `filesystem`, `thread`, `mutex`)
 - **Build System:** CMake
@@ -43,19 +47,19 @@ $$\text{Score} = (1.0 + \log_{10}(\text{TF})) \times \log_{10}(1.0 + \frac{\text
 ## 💻 Usage & Example
 
 **Input:**
-```text
+
 Enter Query: data structures
 Output:
-code
-Text
+
 [1] data/ds_notes.txt (Rank: 3.45)
     Snippet: ... the fundamental concepts of data structures and algorithms ...
 
 [2] data/assignment_1.txt (Rank: 1.23)
     Snippet: ... please submit the data structures project by Friday ...
-📂 Project Structure
-code
-Text
+
+
+## 📂 Project Structure
+
 FlashSearch/
 ├── src/                
 │   ├── main.cpp          # Application Entry Point
@@ -64,7 +68,10 @@ FlashSearch/
 ├── data/               # Target directory for .txt files
 ├── CMakeLists.txt      # Build Configuration
 └── README.md           # Documentation
-🚀 Installation & Getting Started
+
+
+## 🚀 Installation & Getting Started
+
 Prerequisites
 C++ Compiler: GCC (v9+) or Clang.
 Build System: CMake (v3.10+).
@@ -83,15 +90,19 @@ cd build
 cmake ..
 make
 2. Run the Engine
-code
-Bash
+
 # Ensure you have a /data folder with .txt files inside the root or build folder
 ./FlashSearch
-🎓 Learning Outcomes
+
+
+## 🎓 Learning Outcomes
+
 Developed a deep understanding of Inverted Indexing and Information Retrieval.
 Mastered Concurrency in C++ using Mutexes and Thread Pools.
 Implemented Object-Oriented Design to separate indexing logic from the user interface.
 Solved the Cache Invalidation problem using metadata tracking.
 Applied Dynamic Programming for space-optimized fuzzy string matching.
-👤 Author
+
+
+# 👤 Author
 Shivam Kumar
