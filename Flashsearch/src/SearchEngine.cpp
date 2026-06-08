@@ -439,7 +439,8 @@ int SearchEngine:: mindistance(const string &s1, const string &s2)
             if (cnt >= 5)
                 break;
             cnt++;
-            cout << cnt << ". " << p.first << " (Rank: " << p.second << ")" << endl;
+            //cout << cnt << ". " << p.first << " (Rank: " << p.second << ")" << endl;
+            cout << CYAN << cnt << ". " << RESET << p.first << GREEN << " (Score: " << p.second << ")" << RESET << endl;
 
             ifstream file(p.first);
             if (file)
@@ -453,7 +454,8 @@ int SearchEngine:: mindistance(const string &s1, const string &s2)
 
                     if (lower_line.find(token[0]) != string::npos)
                     {
-                        cout << "   Snippet: ... " << line << " ..." << endl;
+                        //cout << "   Snippet: ... " << line << " ..." << endl;
+                        cout << "   Snippet: ... " << YELLOW << line << RESET << " ..." << endl;
                         break;
                     }
                 }
@@ -474,7 +476,8 @@ int SearchEngine:: mindistance(const string &s1, const string &s2)
             }
             if(corrected!=query)
             {
-                cout<<"Did you mean : " << corrected<<"?"<<endl;
+                //cout<<"Did you mean : " << corrected<<"?"<<endl;
+                cout << YELLOW << "Did you mean: " << RESET << corrected << "?" << endl;
             }
         }
         
