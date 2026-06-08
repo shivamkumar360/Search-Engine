@@ -239,6 +239,9 @@ FlashSearch_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 FlashSearch_SOURCE_DIR:STATIC=/mnt/c/projects/search engine/Flashsearch
 
+//The directory containing a CMake configuration file for SFML.
+SFML_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/SFML
+
 
 ########################
 # INTERNAL cache entries

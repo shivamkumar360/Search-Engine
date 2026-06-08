@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 4. Find the Threading library (pthreads)
 find_package(Threads REQUIRED)
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+
 
 # 5. Tell CMake where to find your source code
 add_executable(FlashSearch src/main.cpp src/SearchEngine.cpp)
@@ -19,11 +19,16 @@ add_executable(FlashSearch src/main.cpp src/SearchEngine.cpp)
 target_link_libraries(FlashSearch PRIVATE 
 
 Threads::Threads
-sfml-graphics 
-sfml-window 
-sfml-system
+
 
 )
+
+
+
+
+
+
+
 
 # 7. Optimization: This makes your Search Engine run MUCH faster
 if(NOT MSVC)
