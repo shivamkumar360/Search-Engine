@@ -1,0 +1,4 @@
+A search engine works by indexing pages and ranking them based on relevance.
+The inverted index is the heart of most search systems.
+TF-IDF is a numerical statistic that is intended to reflect how important a word is to a document in a collection.
+The log-normalized frequency helps in making sure that very long documents don't dominate the search results.

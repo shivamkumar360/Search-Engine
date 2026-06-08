@@ -1,0 +1,3 @@
+/mnt/c/projects/search engine/Flashsearch/build/CMakeFiles/FlashSearch.dir
+/mnt/c/projects/search engine/Flashsearch/build/CMakeFiles/edit_cache.dir
+/mnt/c/projects/search engine/Flashsearch/build/CMakeFiles/rebuild_cache.dir

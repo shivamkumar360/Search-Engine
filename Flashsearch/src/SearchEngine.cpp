@@ -1,32 +1,57 @@
-#include <iostream>
+#include "SearchEngine.h"
 #include <fstream>
 #include <sstream>
-#include <unordered_map>
-#include <set>
-#include <cctype>
-#include <vector>
 #include <algorithm>
-#include <iomanip>
 #include <cmath>
-#include <filesystem>
-#include <mutex>
+#include <iomanip>
 #include <thread>
+
 using namespace std;
 namespace fs = std::filesystem;
 
-class SearchEngine
-{
-private:
-    unordered_map<string, unordered_map<string, int>> index;
-    unordered_map<string, long long> filetimestamps;
-    set<string> irrelevent = {"of", "the", "is", "are", "and"};
-    vector<string> files;
-    int totaldoc = 0;
-    mutex mlock;
+SearchEngine::SearchEngine() : totaldoc(0) {
+    irrelevent = {"of", "the", "is", "are", "and"};
+}
+
+int SearchEngine:: mindistance(const string &s1, const string &s2)
+    {
+       int m = s1.length(), n = s2.length();
+    
+    
+    if (m < n) return mindistance(s2, s1);
+
+    vector<int> dp(n + 1);
+
    
+    for (int j = 0; j <= n; j++) 
+    dp[j] = j;
 
+    for (int i = 1; i <= m; i++)
+     {
 
-    void scan_directory()
+        int prevdiagonal = dp[0]; 
+        dp[0] = i;              
+        
+        for (int j = 1; j <= n; j++)
+         {
+            int temp = dp[j];   
+            
+            if (s1[i - 1] == s2[j - 1])
+            {
+                dp[j] = prevdiagonal;
+            } 
+            else 
+            {
+                
+                dp[j] = 1 + min({dp[j], dp[j - 1], prevdiagonal});
+            }
+            prevdiagonal = temp; 
+        }
+    }
+    return dp[n];
+}
+
+ void SearchEngine:: scan_directory()
     {
         files.clear();
         if (!fs::exists("data"))
@@ -42,7 +67,7 @@ private:
         }
     }
 
-    static bool comp(pair<string, double> a, pair<string, double> b)
+ bool SearchEngine:: comp(pair<string, double> a, pair<string, double> b)
     {
         if (a.second > b.second)
         {
@@ -50,7 +75,7 @@ private:
         }
         return false;
     }
-    void indexsize(set<string> &docs)
+    void SearchEngine:: indexsize(set<string> &docs)
     {
         for (auto &p : index)
         {
@@ -61,8 +86,7 @@ private:
         }
     }
 
-public:
-    void initialize()
+    void SearchEngine::initialize()
     {
         scan_directory();
 
@@ -77,7 +101,7 @@ public:
         }
 
         bool indexchange = false;
-        vector<string>filestoupdate;
+        vector<string> filestoupdate;
 
         for (auto &filename : files)
         {
@@ -87,55 +111,45 @@ public:
             {
                 cout << "updating file " << filename << endl;
                 remove_oldfile(filename);
-               // build_index_newfile(filename);
-               filestoupdate.push_back(filename);
+                // build_index_newfile(filename);
+                filestoupdate.push_back(filename);
 
                 filetimestamps[filename] = currenttime;
                 indexchange = true;
             }
         }
 
-
         // mutithreading in batches
 
-        if (!filestoupdate.empty()) {
-        int num_threads = thread::hardware_concurrency();  // knowing about hardware  // if it fails or oncomputable returns 0
-        if (num_threads == 0)    // safety ..if doesn't know we are using 2 
-        num_threads = 2; 
-
-        
-        vector<vector<string>> batches(num_threads);
-        for (int i = 0; i < filestoupdate.size(); i++) 
+        if (!filestoupdate.empty())
         {
-            batches[i % num_threads].push_back(filestoupdate[i]);
-        }
+            int num_threads = thread::hardware_concurrency(); // knowing about hardware  // if it fails or oncomputable returns 0
+            if (num_threads == 0)                             // safety ..if doesn't know we are using 2
+                num_threads = 2;
 
-      
-        vector<std::thread> threads;
-        for (int i = 0; i < num_threads; i++) 
-        {
-            if (!batches[i].empty()) 
+            vector<vector<string>> batches(num_threads);
+            for (int i = 0; i < filestoupdate.size(); i++)
             {
-                threads.push_back(thread(&SearchEngine::build_index_batch, this, batches[i]));
+                batches[i % num_threads].push_back(filestoupdate[i]);
+            }
+
+            vector<std::thread> threads;
+            for (int i = 0; i < num_threads; i++)
+            {
+                if (!batches[i].empty())
+                {
+                    threads.push_back(thread(&SearchEngine::build_index_batch, this, batches[i]));
+                }
+            }
+
+            for (auto &t : threads)
+            {
+                if (t.joinable())
+                {
+                    t.join();
+                }
             }
         }
-
-        for (auto& t : threads)
-        {
-            if (t.joinable())
-            {
-             t.join();
-            }
-        }
-    }
-
-       
-
-
-
-
-
-
 
         for (auto it = filetimestamps.begin(); it != filetimestamps.end();)
         {
@@ -163,7 +177,37 @@ public:
         totaldoc = docs.size();
     }
 
-    void save_timestamp()
+    string SearchEngine:: fuzzysearch(string &q)
+    {
+         string close="";
+        int qlen=q.length();
+         int minm=4;
+        for(auto it:index)
+        {
+           
+            int len=it.first.length();
+            int diff=abs(qlen-len);
+            if(diff>3)
+            {
+                continue;
+            }
+           
+            int chardiff=mindistance(it.first,q);
+            if(chardiff<minm)
+            {
+                minm=chardiff;
+                close=it.first;
+            }
+            if(minm<=1)
+            {
+                break;
+            }
+           
+        }
+        return close;
+    }
+
+    void SearchEngine:: save_timestamp()
     {
         ofstream fout("timestamp.txt");
         for (auto &filename : files)
@@ -176,7 +220,7 @@ public:
         }
     }
 
-    void load_timestamp()
+    void SearchEngine:: load_timestamp()
     {
         ifstream fin("timestamp.txt");
         if (!fin)
@@ -196,7 +240,7 @@ public:
         fin.close();
     }
 
-    void save_index()
+    void SearchEngine:: save_index()
     {
         ofstream fout("index.txt");
 
@@ -217,7 +261,8 @@ public:
             fout << "\n";
         }
     }
-    void remove_oldfile(string filename)
+
+    void SearchEngine:: remove_oldfile(string filename)
     {
         for (auto it = index.begin(); it != index.end();)
         {
@@ -234,53 +279,50 @@ public:
         }
     }
 
-
-    void build_index_batch(const vector<string>&filesupdate)
+    void SearchEngine:: build_index_batch(const vector<string> &filesupdate)
     {
-        for(auto filename:filesupdate)
+        for (auto filename : filesupdate)
         {
-             ifstream fin;
-        fin.open(filename);
-        if (!fin)
-        {
-            cout << "error opening file\n";
-            return;
-        }
+            ifstream fin;
+            fin.open(filename);
+            if (!fin)
+            {
+                cout << "error opening file\n";
+                return;
+            }
 
-        string line;
-        while (getline(fin, line))
-        {
-            string clean = "";
-            for (int i = 0; i < line.length(); i++)
+            string line;
+            while (getline(fin, line))
             {
-                if (isalnum(line[i]) || line[i] == ' ')
+                string clean = "";
+                for (int i = 0; i < line.length(); i++)
                 {
-                    clean += tolower(line[i]);
+                    if (isalnum(line[i]) || line[i] == ' ')
+                    {
+                        clean += tolower(line[i]);
+                    }
+                    else
+                    {
+                        clean += ' ';
+                    }
                 }
-                else
+                stringstream ss(clean);
+                string word;
+                while (ss >> word)
                 {
-                    clean += ' ';
+                    if (irrelevent.find(word) != irrelevent.end())
+                    {
+                        continue;
+                    }
+                    lock_guard<mutex> lock(mlock);
+                    index[word][filename]++;
                 }
             }
-            stringstream ss(clean);
-            string word;
-            while (ss >> word)
-            {
-                if (irrelevent.find(word) != irrelevent.end())
-                {
-                    continue;
-                }
-                lock_guard<mutex> lock(mlock); 
-                index[word][filename]++;
-            }
-        }
-        fin.close();
+            fin.close();
         }
     }
 
-    
-
-    void load_index()
+    void SearchEngine:: load_index()
     {
 
         ifstream fin("index.txt");
@@ -312,7 +354,7 @@ public:
         fin.close();
     }
 
-    void search(string query)
+    void SearchEngine:: search(string query)
     {
 
         string clean_query = "";
@@ -418,24 +460,23 @@ public:
             }
             cout << endl;
         }
-    }
-};
 
-int main()
-{
-    SearchEngine engine;
-    engine.initialize();
-
-    string q;
-    while (true)
-    {
-        cout << "\nEnter Query (or 'exit'): ";
-        getline(cin, q);
-        if (q == "exit")
+        if(filerank.size()==0)
         {
-            break;
+            string corrected="";
+            for(auto &it:token)
+            {
+                string closef=fuzzysearch(it);
+                if(closef.length()>0)
+                {
+                   corrected+=closef+" ";
+                }
+            }
+            if(corrected!=query)
+            {
+                cout<<"Did you mean : " << corrected<<"?"<<endl;
+            }
         }
-        engine.search(q);
+        
     }
-    return 0;
-}
+
