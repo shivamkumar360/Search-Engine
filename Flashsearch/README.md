@@ -58,16 +58,20 @@ Output:
     Snippet: ... please submit the data structures project by Friday ...
 
 
-📂 Project Structure
+## 📂 Project Structure
 
+<pre>
+```text
 FlashSearch/
-├── src/                
-│   ├── main.cpp          # Application Entry Point
-│   ├── SearchEngine.cpp  # Logic Implementation
-│   └── SearchEngine.h    # Class Definitions
-├── data/                 # Target directory for .txt files
-├── CMakeLists.txt        # Build Configuration
-└── README.md             # Documentation
+├── src/
+│ ├── main.cpp # Application Entry Point
+│ ├── SearchEngine.cpp # Logic Implementation
+│ └── SearchEngine.h # Class Definitions
+├── data/ # Target directory for .txt files
+├── CMakeLists.txt # Build Configuration
+└── README.md # Documentation
+```
+</pre>
 
 
 ## 🚀 Installation & Getting Started
