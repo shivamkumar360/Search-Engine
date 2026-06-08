@@ -9,6 +9,8 @@
 #include <iomanip>
 #include <cmath>
 #include <filesystem>
+#include <mutex>
+#include <thread>
 using namespace std;
 namespace fs = std::filesystem;
 
@@ -20,7 +22,9 @@ private:
     set<string> irrelevent = {"of", "the", "is", "are", "and"};
     vector<string> files;
     int totaldoc = 0;
-    bool build = true;
+    mutex mlock;
+   // bool build = true;
+
 
     void scan_directory()
     {
@@ -73,6 +77,7 @@ public:
         }
 
         bool indexchange = false;
+        vector<string>filestoupdate;
 
         for (auto &filename : files)
         {
@@ -82,11 +87,49 @@ public:
             {
                 cout << "updating file " << filename << endl;
                 remove_oldfile(filename);
-                build_index_newfile(filename);
+               // build_index_newfile(filename);
+               filestoupdate.push_back(filename);
+
                 filetimestamps[filename] = currenttime;
                 indexchange = true;
             }
         }
+
+        if (!filestoupdate.empty()) {
+        int num_threads = thread::hardware_concurrency(); 
+        if (num_threads == 0) 
+        num_threads = 2; 
+
+        
+        vector<vector<string>> batches(num_threads);
+        for (int i = 0; i < filestoupdate.size(); i++) 
+        {
+            batches[i % num_threads].push_back(filestoupdate[i]);
+        }
+
+      
+        vector<std::thread> threads;
+        for (int i = 0; i < num_threads; i++) 
+        {
+            if (!batches[i].empty()) 
+            {
+                threads.push_back(thread(&SearchEngine::build_index_batch, this, batches[i]));
+            }
+        }
+
+        for (auto& t : threads)
+        {
+            if (t.joinable()) t.join();
+        }
+    }
+
+       
+
+
+
+
+
+
 
         for (auto it = filetimestamps.begin(); it != filetimestamps.end();)
         {
@@ -185,10 +228,12 @@ public:
         }
     }
 
-    void build_index_newfile(string filename)
-    {
 
-        ifstream fin;
+    void build_index_batch(const vector<string>&filesupdate)
+    {
+        for(auto filename:filesupdate)
+        {
+             ifstream fin;
         fin.open(filename);
         if (!fin)
         {
@@ -219,10 +264,15 @@ public:
                 {
                     continue;
                 }
+                lock_guard<mutex> lock(mlock); 
                 index[word][filename]++;
             }
         }
+        fin.close();
+        }
     }
+
+    
 
     void load_index()
     {
