@@ -23,7 +23,7 @@ private:
     vector<string> files;
     int totaldoc = 0;
     mutex mlock;
-   // bool build = true;
+   
 
 
     void scan_directory()
@@ -95,9 +95,12 @@ public:
             }
         }
 
+
+        // mutithreading in batches
+
         if (!filestoupdate.empty()) {
-        int num_threads = thread::hardware_concurrency(); 
-        if (num_threads == 0) 
+        int num_threads = thread::hardware_concurrency();  // knowing about hardware  // if it fails or oncomputable returns 0
+        if (num_threads == 0)    // safety ..if doesn't know we are using 2 
         num_threads = 2; 
 
         
@@ -119,7 +122,10 @@ public:
 
         for (auto& t : threads)
         {
-            if (t.joinable()) t.join();
+            if (t.joinable())
+            {
+             t.join();
+            }
         }
     }
 
