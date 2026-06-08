@@ -33,9 +33,21 @@ Threads::Threads
 # 7. Optimization: This makes your Search Engine run MUCH faster
 if(NOT MSVC)
     target_compile_options(FlashSearch PRIVATE -O3)
-endif()
+    endif()
+
 
 # This automatically copies your existing index and data into the build folder
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/index.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/timestamp.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/data")
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+else()
+    message(WARNING "Data folder not found in source directory!")
+endif()
+
+# 2. ONLY copy the index and timestamp if they exist
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/index.txt")
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/index.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+endif()
+
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/timestamp.txt")
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/timestamp.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+endif()
