@@ -59,7 +59,6 @@ Output:
 
 
 ## 📂 Project Structure
-
 FlashSearch/
 ├── src/                
 │   ├── main.cpp          # Application Entry Point
@@ -84,15 +83,18 @@ cd FlashSearch
 
 # Create a build directory
 mkdir build
+
 cd build
 
 # Generate build files and compile
 cmake ..
+
 make
 
 2. Run the Engine
 
 # Ensure you have a /data folder with .txt files inside the root or build folder
+
 ./FlashSearch
 
 
