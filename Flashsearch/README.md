@@ -1,150 +1,97 @@
-#   FlashSearch: High-Performance Incremental Search Engine (C++)
+# 🔍 FlashSearch: High-Performance Incremental Search Engine (C++)
 
-A high-speed desktop search utility built in C++ that provides ranked search results using TF-IDF relevance scoring. Unlike standard search scripts, FlashSearch features an Incremental Indexing Engine that tracks file state to ensure near-instant updates.
-
----
-
-# Features
-
-
--  Ranked Retrieval: Implements log-normalized TF-IDF (Term Frequency-Inverse Document Frequency) to ensure the most relevant 
-   documents appear at the top.
-
--  Incremental Indexing: Uses std::filesystem metadata to track "Last Modified" timestamps. It only re-indexes files that have 
-   been added or changed, ignoring thousands of untouched files to save CPU cycles.  
-
--  Stop-word removal (e.g., "the", "is")  
-
--  Auto-Discovery & Deletion Tracking: Automatically crawls the /data directory and cleans up "stale" entries from the index if a 
-   file is deleted from the disk.  
-
--  Contextual Snippets: Provides a "Google-style" preview of the search results, extracting and displaying the exact sentence
-   where the match was found.
-
--  Dual-Layer Persistence: Serializes both the Inverted Index and File Metadata to disk, allowing the system to resume state 
-   instantly upon restart.
-
+A high-speed desktop search utility built in C++ that provides ranked search results using **TF-IDF relevance scoring**. Unlike standard search scripts, FlashSearch features an **Incremental Indexing Engine** that tracks file state to ensure near-instant updates.
 
 ---
 
-# How it Works
+## ✨ Features
 
-1. Preprocessing
-   - Convert text to lowercase  
-   - Remove punctuation  
-   - Remove stop words  
+- **Ranked Retrieval:** Implements log-normalized **TF-IDF** (Term Frequency-Inverse Document Frequency) to ensure the most relevant documents appear at the top.
+- **Incremental Indexing:** Uses `std::filesystem` metadata to track "Last Modified" timestamps. It only re-indexes files that have been added or changed, ignoring thousands of untouched files to save CPU cycles.
+- **Multithreaded Indexing:** Utilizes hardware-concurrency-aware batch processing to index large sets of documents in parallel using `std::thread` and `std::mutex`.
+- **Fuzzy Matching:** Built-in "Did you mean?" functionality using a space-optimized **Levenshtein Distance (Edit Distance)** algorithm to handle user typos.
+- **Auto-Discovery & Deletion Tracking:** Automatically crawls the `/data` directory and cleans up "stale" entries from the index if a file is deleted from the disk.
+- **Contextual Snippets:** Provides a "Google-style" preview, extracting and displaying the exact sentence where the match was found.
+- **Dual-Layer Persistence:** Serializes both the Inverted Index and File Metadata to disk, allowing the system to resume state instantly upon restart.
 
-2. Indexing
-   - Build an inverted index  
-   - Store frequency of each word per file  
+---
 
-3. Multithreading
-   - Build index for files in batches using mutiple threads.
+## 🛠️ System Architecture
 
-4. Persistence
-   - The index is written to disk in a structured format (word file1:freq file2:freq) for rapid loading
+### 1. Preprocessing Pipeline
+- **Normalization:** Case-folding (lowercase) and punctuation stripping using `isalnum`.
+- **Filtering:** Stop-word removal (e.g., "the", "is", "and") to reduce noise in the inverted index.
 
-5. Ranking
-   - Use TF-IDF:
-     
-     score = (1.00 + log10(frequency)) × log(1 + total_docs / docs_with_word)
-     
+### 2. Data Structures
+- **Primary Index:** `unordered_map<string, unordered_map<string, int>>` (Inverted Index) for $O(1)$ word lookup across the dataset.
+- **State Registry:** `unordered_map<string, long long>` storing epoch-based timestamps for change detection and cache invalidation.
 
-6. Query
-   - Input query → tokenize → compute scores → rank results  
+### 3. Ranking Logic
+The engine uses log-normalized TF-IDF for scoring:
+$$\text{Score} = (1.0 + \log_{10}(\text{TF})) \times \log_{10}(1.0 + \frac{\text{Total Docs}}{\text{Docs With Word}})$$
 
+---
 
+## 🔧 Tech Stack
+- **Language:** C++ (Standard 17+)
+- **Libraries:** STL (`unordered_map`, `vector`, `set`, `filesystem`, `thread`, `mutex`)
+- **Build System:** CMake
+- **I/O:** `fstream` (State Serialization)
 
-# Example
+---
 
-# Input: data structures
+## 💻 Usage & Example
 
-
-# Output:
-data.txt -> 3.45
-data2.txt -> 1.23
-
-
-
-
-# Tech Stack
-
-- C++
-- STL (unordered_map, vector, set)
-- File Handling (ifstream)
-
-1. Preprocessing Pipeline
-
-Normalization: Case-folding (lowercase) and punctuation stripping using isalnum.
-Stop-word Filtering: High-frequency, low-info words (e.g., "the", "is", "and") are filtered out to improve ranking accuracy.
-
-2. Data Structures
-
-Primary Index: unordered_map<string, unordered_map<string, int>>
-
-State Registry: unordered_map<string, long long> storing epoch-based timestamps for change detection.
-
-3. Ranking Logic
-The engine uses the following formula for document scoring:
-
-Score = (1.0 + log10(TF)) * log10(1.0 + Total_Docs / Docs_With_Word);
-
-
-# Usage and Example
-
-Input: 
+**Input:**
+```text
 Enter Query: data structures
-
 Output:
-
-[1] data/notes.txt (Rank: 3.45)
+code
+Text
+[1] data/ds_notes.txt (Rank: 3.45)
     Snippet: ... the fundamental concepts of data structures and algorithms ...
 
 [2] data/assignment_1.txt (Rank: 1.23)
     Snippet: ... please submit the data structures project by Friday ...
+📂 Project Structure
+code
+Text
+FlashSearch/
+├── src/                
+│   ├── main.cpp          # Application Entry Point
+│   ├── SearchEngine.cpp  # Logic Implementation
+│   └── SearchEngine.h    # Class Definitions
+├── data/               # Target directory for .txt files
+├── CMakeLists.txt      # Build Configuration
+└── README.md           # Documentation
+🚀 Installation & Getting Started
+Prerequisites
+C++ Compiler: GCC (v9+) or Clang.
+Build System: CMake (v3.10+).
+Library: pthread (required for multithreading).
+1. Build the Project
+code
+Bash
+# Navigate to the project folder
+cd FlashSearch
 
+# Create a build directory
+mkdir build
+cd build
 
-
-
-
-
----
-
-# Learning Outcomes
-
-
-
-- Developed a deep understanding of **Inverted Indexing** and Information Retrieval.
-
-- Implemented Object-Oriented Design to separate indexing logic from the search interface.
-
-- Solved the Cache Invalidation problem using **metadata tracking**.
-
-- Implemented Multithreading
-
-- Applied hashing for efficient search  
-
-
-# Future Roadmap
-
-- **Multi-threading**: Parallelize the initial indexing phase using std::thread and std::mutex.
-
-- **Stemming**: Integrate a Porter Stemmer to handle word variations (e.g., "searching" -> "search").
-
-- **Fuzzy Matching**: Implement Levenshtein Distance for typo tolerance.
-
-
-# Author
-
+# Generate build files and compile
+cmake ..
+make
+2. Run the Engine
+code
+Bash
+# Ensure you have a /data folder with .txt files inside the root or build folder
+./FlashSearch
+🎓 Learning Outcomes
+Developed a deep understanding of Inverted Indexing and Information Retrieval.
+Mastered Concurrency in C++ using Mutexes and Thread Pools.
+Implemented Object-Oriented Design to separate indexing logic from the user interface.
+Solved the Cache Invalidation problem using metadata tracking.
+Applied Dynamic Programming for space-optimized fuzzy string matching.
+👤 Author
 Shivam Kumar
-
-
-
-
-
-
-
-
-
-
-
