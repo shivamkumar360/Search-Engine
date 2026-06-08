@@ -58,7 +58,8 @@ Output:
     Snippet: ... please submit the data structures project by Friday ...
 
 
-## 📂 Project Structure
+📂 Project Structure
+
 FlashSearch/
 ├── src/                
 │   ├── main.cpp          # Application Entry Point
