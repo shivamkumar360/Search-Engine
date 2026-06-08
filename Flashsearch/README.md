@@ -65,9 +65,9 @@ FlashSearch/
 │   ├── main.cpp          # Application Entry Point
 │   ├── SearchEngine.cpp  # Logic Implementation
 │   └── SearchEngine.h    # Class Definitions
-├── data/               # Target directory for .txt files
-├── CMakeLists.txt      # Build Configuration
-└── README.md           # Documentation
+├── data/                 # Target directory for .txt files
+├── CMakeLists.txt        # Build Configuration
+└── README.md             # Documentation
 
 
 ## 🚀 Installation & Getting Started
@@ -76,9 +76,9 @@ Prerequisites
 C++ Compiler: GCC (v9+) or Clang.
 Build System: CMake (v3.10+).
 Library: pthread (required for multithreading).
+
 1. Build the Project
-code
-Bash
+
 # Navigate to the project folder
 cd FlashSearch
 
@@ -89,6 +89,7 @@ cd build
 # Generate build files and compile
 cmake ..
 make
+
 2. Run the Engine
 
 # Ensure you have a /data folder with .txt files inside the root or build folder
