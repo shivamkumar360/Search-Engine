@@ -38,16 +38,19 @@ A high-speed desktop search utility built in C++ that provides ranked search res
    - Build an inverted index  
    - Store frequency of each word per file  
 
-3. Persistence
+3. Multithreading
+   - Build index for files in batches using mutiple threads.
+
+4. Persistence
    - The index is written to disk in a structured format (word file1:freq file2:freq) for rapid loading
 
-4. Ranking
+5. Ranking
    - Use TF-IDF:
      
      score = (1.00 + log10(frequency)) × log(1 + total_docs / docs_with_word)
      
 
-5. Query
+6. Query
    - Input query → tokenize → compute scores → rank results  
 
 
@@ -116,6 +119,8 @@ Output:
 - Implemented Object-Oriented Design to separate indexing logic from the search interface.
 
 - Solved the Cache Invalidation problem using **metadata tracking**.
+
+- Implemented Multithreading
 
 - Applied hashing for efficient search  
 
